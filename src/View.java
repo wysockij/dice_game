@@ -15,5 +15,4 @@ public abstract class View extends JFrame {
     public JFrame getFrame() {
         return frame;
     }
-
 }

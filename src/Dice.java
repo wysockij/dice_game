@@ -1,19 +1,18 @@
 import java.awt.Container;
-
 import javax.swing.*;
 
 public class Dice {
-
     private int diceNumber;
     private int diceValue;
     private JLabel diceLabel;
 
-    Icon[] scoreIcons = { new ImageIcon("dice1.png"),
-            new ImageIcon("dice2.png"),
-            new ImageIcon("dice3.png"),
-            new ImageIcon("dice4.png"),
-            new ImageIcon("dice5.png"),
-            new ImageIcon("dice6.png")
+    Icon[] scoreIcons = {   
+        new ImageIcon("images/dice1.png"),
+        new ImageIcon("images/dice2.png"),
+        new ImageIcon("images/dice3.png"),
+        new ImageIcon("images/dice4.png"),
+        new ImageIcon("images/dice5.png"),
+        new ImageIcon("images/dice6.png")
     };
 
     public Dice() {
@@ -43,5 +42,4 @@ public class Dice {
     public void addDiceLabelToContainer(Container container) {
         container.add(this.diceLabel);
     }
-
 }

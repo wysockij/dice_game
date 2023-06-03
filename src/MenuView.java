@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuView extends View implements ActionListener {
-    // EDIT:PIOTR// GameController GameController = new GameController();
     private ImageIcon image;
     private JLabel welcomeLabel, playersLabel, dicesLabel;
     private JPanel welcomePanel, buttonsPanel;
@@ -16,6 +15,7 @@ public class MenuView extends View implements ActionListener {
 
         super();
         getFrame().setTitle("Dice Game");
+        
         // 1'st Panel
         image = new ImageIcon("dices.png");
 
@@ -77,7 +77,6 @@ public class MenuView extends View implements ActionListener {
             gameController.setModel(model);
             gameView.setModel(model);
             gameView.setController(gameController);
-
         }
     }
 }

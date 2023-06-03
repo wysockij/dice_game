@@ -1,23 +1,15 @@
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseWheelEvent;
-import java.lang.reflect.Array;
-import java.net.StandardSocketOptions;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 
 public class GameView extends View implements ActionListener {
     private GameController GameController;
     private Model gameModel;
-    private JLabel score1, score2, score3;
+    private JLabel score1, score2;
     private JPanel buttonsPanel, scorePanel;
     private JButton rollButton, nextPlayer;
-    public JPanel gameViewPanel;
+    private JPanel gameViewPanel;
 
     public boolean isNextPlayerAvailable = false;
     public boolean isRollingAvailable = true;
@@ -27,20 +19,21 @@ public class GameView extends View implements ActionListener {
 
         super();
         getFrame().setTitle("Dice Game");
+        
+        // 1'st Panel
         score1 = new JLabel();
         score2 = new JLabel();
-        score3 = new JLabel();
         score1.setFont(new Font(null, Font.PLAIN, 20));
         score2.setFont(new Font(null, Font.PLAIN, 20));
-        score3.setFont(new Font(null, Font.PLAIN, 20));
         scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
         scorePanel.add(score1);
         scorePanel.add(score2);
-        scorePanel.add(score3);
 
+        // 2'st Panel
         gameViewPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 70));
         gameViewPanel.setBackground(Color.WHITE);
 
+        // 3'st Panel
         rollButton = new JButton("Roll dices");
         rollButton.addActionListener(this);
         nextPlayer = new JButton("Next player");
@@ -55,17 +48,17 @@ public class GameView extends View implements ActionListener {
         getFrame().add(gameViewPanel);
         getFrame().add(scorePanel);
         getFrame().setVisible(true);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == rollButton && isRollingAvailable == true) {
+        if (e.getSource() == rollButton && isRollingAvailable) {
             GameController.rollAndSum();
-            score1.setText("TURN: " + gameModel.getTurn() + "    PLAYER: " + gameModel.getCurrentPlayerID() +
-                            "    Dices:" + gameModel.getPlayerScoreList(gameModel.getCurrentPlayerID()));
+            score1.setText(
+                "TURN: " + gameModel.getTurn() + 
+                "    PLAYER: " + gameModel.getCurrentPlayerID() +
+                "    Dices:" + gameModel.getPlayerScoreList(gameModel.getCurrentPlayerID()));
             score2.setText("Sum:" + gameModel.getPlayerSummScore(gameModel.getCurrentPlayerID()));
-            score3.setText(null);
             isRollingAvailable = false;
             isNextPlayerAvailable = true;
             gameModel.saveScoreToFile();
@@ -76,23 +69,20 @@ public class GameView extends View implements ActionListener {
                 isRollingAvailable = false;
             }
         }
-        if (isNextPlayerAvailable == true && e.getSource() == nextPlayer) {
+        if (isNextPlayerAvailable && e.getSource() == nextPlayer) {
             score1.setText("TURN: " + "    PLAYER: " + "    Dices: ");
             score2.setText("Sum: ");
-            score3.setText(null);
             gameModel.changePlayer();
         }
-        if (isRollingAvailable == false && isNextPlayerAvailable == false && isWinnerDeterminated == true && e.getSource() == nextPlayer) {
-//            System.out.println(gameModel.getWinners());
-            score1.setText(null);
+        if (!isRollingAvailable && !isNextPlayerAvailable && isWinnerDeterminated && e.getSource() == nextPlayer) {
+            score1.setText("The winners are players with numbers: " + gameModel.getWinners());
             score2.setText(null);
-            score3.setText("The winners are players with numbers: " + gameModel.getWinners());
+            hideScoreImages();
             gameModel.clearPlayersSumsArray();
             isWinnerDeterminated = false;
             isNextPlayerAvailable = true;
         }
     }
-
 
     public void setModel(Model gameModel) {
         this.gameModel = gameModel;

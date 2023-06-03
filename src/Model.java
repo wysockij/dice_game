@@ -4,14 +4,12 @@ import java.io.PrintWriter;
 import java.io.IOException;
 
 public class Model extends Exception implements Runnable {
-
     private int numberOfPlayers;
     private int numberOfDices;
     public ArrayList<Integer> winners;
     public ArrayList<Player> players;
     GameView gameView;
     private int currentPlayerID = 0;
-
     private int turn = 1;
 
     public Model(int numberOfPlayers, int numberOfDices) {
@@ -86,6 +84,7 @@ public class Model extends Exception implements Runnable {
     }
 
     ArrayList<Integer> playersSums = new ArrayList<Integer>();
+    
     public void determinateWinners() {
         winners = new ArrayList<Integer>();
         ArrayList<Integer> winners = new ArrayList<Integer>();
@@ -103,11 +102,12 @@ public class Model extends Exception implements Runnable {
             }
         }
         this.winners = winners;
-//        System.out.println(playersSums);
     }
+
     public ArrayList<Integer> getWinners() {
         return winners;
     }
+
     public void clearPlayersSumsArray() {
         playersSums.clear();
     }
@@ -115,16 +115,19 @@ public class Model extends Exception implements Runnable {
     public void saveScoreToFile() {
         Runnable writeToFile = () -> {
             try {
-                FileWriter fileWriter = new FileWriter("scores.txt", true);
+                FileWriter fileWriter = new FileWriter("scores_log.txt", true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
-                printWriter.write("\nTurn: " + getTurn() +
-                        "\nPlayer: " + getCurrentPlayerID() +
-                        "\nDices: " + getPlayerScoreList(getCurrentPlayerID()) +
-                        "\nSum: " + getPlayerSummScore(getCurrentPlayerID()) + "\n");
+                printWriter.write(
+                    "\nTurn: " + getTurn() +
+                    "\nPlayer: " + getCurrentPlayerID() +
+                    "\nDices: " + getPlayerScoreList(getCurrentPlayerID()) +
+                    "\nSum: " + getPlayerSummScore(getCurrentPlayerID()) + 
+                    "\n");
                 fileWriter.close();
                 printWriter.close();
-            } catch (IOException e) {
-                System.out.println("Brak pliku wyjściowego!");
+            }
+            catch (IOException e) {
+                System.out.println("Missing file!");
             }
         };
         Thread thread = new Thread(writeToFile);
