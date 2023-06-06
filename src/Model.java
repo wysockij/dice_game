@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 
-public class Model extends Exception implements Runnable {
+public class Model extends IOException implements Runnable {
     private int numberOfPlayers;
     private int numberOfDices;
     public ArrayList<Integer> winners;
@@ -11,6 +11,7 @@ public class Model extends Exception implements Runnable {
     GameView gameView;
     private int currentPlayerID = 0;
     private int turn = 1;
+    int hightsScore = 0;
 
     public Model(int numberOfPlayers, int numberOfDices) {
         this.numberOfPlayers = numberOfPlayers;
@@ -101,6 +102,7 @@ public class Model extends Exception implements Runnable {
                 winners.add(i);
             }
         }
+        this.hightsScore = hightsScore;
         this.winners = winners;
     }
 
@@ -108,6 +110,9 @@ public class Model extends Exception implements Runnable {
         return winners;
     }
 
+    public int getHighestScore() {
+        return hightsScore;
+    }
     public void clearPlayersSumsArray() {
         playersSums.clear();
     }
@@ -135,8 +140,7 @@ public class Model extends Exception implements Runnable {
     }
 
     private static class Player {
-        public int playerID;
-
+        public int playerID = 0;
         public int sum = 0;
 
         public ArrayList<Integer> scoreList;

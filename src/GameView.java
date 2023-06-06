@@ -75,7 +75,10 @@ public class GameView extends View implements ActionListener {
             gameModel.changePlayer();
         }
         if (!isRollingAvailable && !isNextPlayerAvailable && isWinnerDeterminated && e.getSource() == nextPlayer) {
-            score1.setText("The winners are players with numbers: " + gameModel.getWinners());
+            score1.setText(
+                    "The winners are players with numbers: " + gameModel.getWinners() +
+                    " with the sum " + gameModel.getHighestScore()
+            );
             score2.setText(null);
             hideScoreImages();
             gameModel.clearPlayersSumsArray();

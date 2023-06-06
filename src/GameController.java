@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameController {
+public class GameController implements Runnable {
     Random random;
     private final int numberOfDices;
     private Model gameModel;
@@ -12,7 +12,8 @@ public class GameController {
         this.random = new Random();
     }
 
-    public void rollAndSum() {
+    @Override
+    public void run() {
         int currentPlayerID = gameModel.getCurrentPlayerID();
         for (Dice dice : Dices) {
             int currentScore = random.nextInt(6) + 1;
@@ -21,6 +22,10 @@ public class GameController {
         }
         gameModel.setPlayerScoreList(Dices, currentPlayerID);
         gameModel.setPlayerSummScore(currentPlayerID);
+    }
+
+    public void rollAndSum() {
+        run();
     }
 
     public void setModel(Model model) {

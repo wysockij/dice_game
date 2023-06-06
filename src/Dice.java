@@ -2,7 +2,6 @@ import java.awt.Container;
 import javax.swing.*;
 
 public class Dice {
-    private int diceNumber;
     private int diceValue;
     private JLabel diceLabel;
 
@@ -17,7 +16,6 @@ public class Dice {
 
     public Dice() {
         this.diceValue = 1;
-        this.diceNumber = 0;
         this.diceLabel = new JLabel();
     }
 

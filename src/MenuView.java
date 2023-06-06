@@ -17,7 +17,7 @@ public class MenuView extends View implements ActionListener {
         getFrame().setTitle("Dice Game");
         
         // 1'st Panel
-        image = new ImageIcon("dices.png");
+        image = new ImageIcon("images/dices.png");
 
         welcomeLabel = new JLabel();
         welcomeLabel.setText("Welcome to dice game!");
