@@ -36,7 +36,7 @@ public class GameView extends View implements ActionListener {
         // 3'st Panel
         rollButton = new JButton("Roll dices");
         rollButton.addActionListener(this);
-        nextPlayer = new JButton("Next player");
+        nextPlayer = new JButton("Next playr/turn");
         nextPlayer.addActionListener(this);
         buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
         buttonsPanel.setBackground(Color.lightGray);
@@ -54,6 +54,7 @@ public class GameView extends View implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rollButton && isRollingAvailable) {
             GameController.rollAndSum();
+        
             score1.setText(
                 "TURN: " + gameModel.getTurn() + 
                 "    PLAYER: " + gameModel.getCurrentPlayerID() +

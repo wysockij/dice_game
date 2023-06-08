@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public abstract class View extends JFrame {
+public abstract class View {
     private final int width = 1280;
     private final int height = 720;
     private final JFrame frame;

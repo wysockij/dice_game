@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.IOException;
+
 
 public class Model extends IOException implements Runnable {
     private int numberOfPlayers;
@@ -18,7 +22,7 @@ public class Model extends IOException implements Runnable {
         this.numberOfDices = numberOfDices;
         players = new ArrayList<Player>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            Player PlayerName = new Player(i);
+            Player PlayerName = new Player();
             players.add(PlayerName);
         }
     }
@@ -80,12 +84,12 @@ public class Model extends IOException implements Runnable {
 
     public void run() {
         while (true) {
-            gameView.repaint();
+            gameView.getFrame().repaint();
         }
     }
 
     ArrayList<Integer> playersSums = new ArrayList<Integer>();
-    
+
     public void determinateWinners() {
         winners = new ArrayList<Integer>();
         ArrayList<Integer> winners = new ArrayList<Integer>();
@@ -113,26 +117,33 @@ public class Model extends IOException implements Runnable {
     public int getHighestScore() {
         return hightsScore;
     }
+
     public void clearPlayersSumsArray() {
         playersSums.clear();
     }
 
     public void saveScoreToFile() {
+        String filePath = "scores_log.txt";
+        Path path = Paths.get(filePath);
         Runnable writeToFile = () -> {
             try {
-                FileWriter fileWriter = new FileWriter("scores_log.txt", true);
-                PrintWriter printWriter = new PrintWriter(fileWriter);
-                printWriter.write(
-                    "\nTurn: " + getTurn() +
-                    "\nPlayer: " + getCurrentPlayerID() +
-                    "\nDices: " + getPlayerScoreList(getCurrentPlayerID()) +
-                    "\nSum: " + getPlayerSummScore(getCurrentPlayerID()) + 
-                    "\n");
-                fileWriter.close();
-                printWriter.close();
-            }
-            catch (IOException e) {
-                System.out.println("Missing file!");
+                if(Files.exists(path)) {
+                    FileWriter fileWriter = new FileWriter(filePath, true);
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.write(
+                        "\nTurn: " + getTurn() +
+                        "\nPlayer: " + getCurrentPlayerID() +
+                        "\nDices: " + getPlayerScoreList(getCurrentPlayerID()) +
+                        "\nSum: " + getPlayerSummScore(getCurrentPlayerID()) +
+                        "\n");
+                    fileWriter.close();
+                    printWriter.close();
+                }
+                else {
+                    throw new IOException("Missing path: " + filePath);
+                }
+            } catch (IOException e) {
+                System.out.println("Missing path:" + filePath);
             }
         };
         Thread thread = new Thread(writeToFile);
@@ -140,14 +151,14 @@ public class Model extends IOException implements Runnable {
     }
 
     private static class Player {
-        public int playerID = 0;
         public int sum = 0;
 
         public ArrayList<Integer> scoreList;
-        public Player(int playerID) {
-            this.playerID = playerID;
+
+        public Player() {
             scoreList = new ArrayList<Integer>();
         }
+
         public void setSum() {
             this.sum = 0;
             for (Integer score : this.scoreList) {
