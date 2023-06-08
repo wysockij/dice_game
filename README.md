@@ -10,4 +10,4 @@
     $ cd out
     $ java Main  
 ## UML graph  
-![UML](image link)
+![UML](https://raw.githubusercontent.com/wysockij/dice_game/main/images/UML.png)
