@@ -1,10 +1,10 @@
 # Dice Game
 
+### Simple dice game which I made for my electronics studies.  
+
 ## Team members
 - Piotr Malec @pmalec1
 - Jakub Wysocki @wysockij
-
-### Simple dice game which I made for my electronics studies.  
 
 ## Project organisation  
 - *images/* - directory with images used in the project  
