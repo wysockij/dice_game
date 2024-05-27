@@ -1,16 +1,16 @@
 # Dice Game
 
-### Simple dice game which I made for my electronics studies.  
+A simple dice game that I made for my electronics studies.
 
 ## Team members
 - Piotr Malec @pmalec1
 - Jakub Wysocki @wysockij
 
 ## Project organisation  
-- *images/* - directory with images used in the project  
+- *images/* - directory with images used in the project
 - *out/* - directory with generated files after compilation  
-- *src/* - direcotry with sorce files in Java  
-- *scores_log.txt* - file with players' scores  
+- *src/* - directory with source files in Java  
+- *scores_log.txt* - file with players' scores
 
 ## Compilation and running  
     $ javac -d ./out/ ./src/*.java
